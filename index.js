@@ -6,10 +6,14 @@ app.set('view engine', 'ejs');
 
 
 io.on("connection",(socket) =>{
-    socket.on("boasvindas", (data) =>{
-        console.log("Executando o evento de boas vindas")
-        console.log(data);
+    socket.on("disconnect", () =>{
+        console.log(`${socket.id} Se desconectou`);
+    })
+    socket.on("msg", (data) =>{
+        io.emit("showmsg",data);
+        console.log(data)
     });
+
 })
 
 app.get("/", (req,res) =>{
